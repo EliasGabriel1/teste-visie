@@ -1,3 +1,7 @@
+.Card__favorite{
+    cursor: pointer;
+}
+
 .Card__product-image>img {
     min-height: 210px;
     max-height: 210px;

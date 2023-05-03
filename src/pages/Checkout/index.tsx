@@ -3,7 +3,7 @@ import { AppContext } from "../../Context/AppContext";
 // import "./checkout.css";
 
 function Checkout(): JSX.Element {
-  const { cart, clearCart } = useContext(AppContext);
+  const { cart, clearCart, atualizarCart } = useContext(AppContext);
   const [compraFeita, setCompraFeita] = useState(false);
 
   function handleCompraFeita() {
@@ -11,16 +11,30 @@ function Checkout(): JSX.Element {
     setCompraFeita(true);
   }
 
+  // const handleChange = (itemId: number, value: number) => {
+  //   atualizarCart(itemId, value);
+  // }
+
   return (
     <div className="checkout">
+      <h1>CARRINHO DE COMPRAS</h1>
       {!compraFeita ? (
         <>
           <ul>
             {cart.length > 0 ? (
               cart.map((item: any, index: number) => (
                 <li key={index}>
-                  <img alt="" width="100%" src={item[0].imageProduct} />
-                  {item[0].productName} - R${item[0].Price}
+                  <img alt="" width="200px" src={item.imageProduct} />
+                  {item.productName} - R${item.Price}
+                  quantidade: {item.quantidade}
+                  {/* <input
+                    type="number"
+                    id="quantity"
+                    name="quantity"
+                    min={1}
+                    max={10}
+                    onChange={(e) => handleChange(item.id, e.target.valueAsNumber)}
+                  /> */}
                 </li>
               ))
             ) : (

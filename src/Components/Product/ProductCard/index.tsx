@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../../Context/AppContext";
-// import "./productCard.css";
+import "./productcard.css";
 
 interface Props {
     item: {
@@ -20,7 +20,9 @@ interface Props {
 }
 
 function ProductCard({ item }: Props) {
-    const { addItemToCart, IrAoItem, NovoItem }: any = useContext(AppContext);
+    const { addItemToCart, IrAoItem, NovoItem, addFav, fav}: any = useContext(AppContext);
+    const [background, setBackground] = useState("#000");
+
     const navigate = useNavigate();
     const ListPrice = item.price - item.discountPercentage;
     const clusterHighlights = item.discountPercentage;
@@ -30,9 +32,11 @@ function ProductCard({ item }: Props) {
         productName: item.title,
         productBrand: item.brand,
         productDescription: item.description,
-        imageProduct: item.images,
+        imageProduct: item.thumbnail,
+        thumbnail: item.images,
         ListPrice: ListPrice,
         Price: item.price,
+        "quantidade":1,
         installmentOptionsCount: item.discountPercentage,
     }
 
@@ -42,6 +46,16 @@ function ProductCard({ item }: Props) {
         navigate("/Producto");
     };
 
+    useEffect(() => {
+        fav.map((itemfav:any) => {
+            return itemfav === item.id ? setBackground("red") : ""
+        })
+    })
+
+    const favoreitei = ()=>{
+        addFav(item.id)
+        setBackground("red")
+    }
 
     return (
         <li className="item-product">
@@ -51,6 +65,10 @@ function ProductCard({ item }: Props) {
                 <div className="Card__link">
                     <span className="Card__flags">
                         {clusterHighlights}
+                    </span>
+
+                    <span className="Card__favorite" style={{ color: background }} onClick={() => {  favoreitei()}}>
+                        ❤
                     </span>
 
                     <span className="Card__product-image" onClick={pageProduct}>
@@ -84,7 +102,11 @@ function ProductCard({ item }: Props) {
                     </div>
 
                 </div>
-
+                <div className="Card__ver-mais">
+                    <button onClick={pageProduct}>
+                        ver mais
+                    </button>
+                </div>
                 <div className="Card__comprar">
                     <button className="Card__comprar-button" onClick={() => addItemToCart(productItem)}>
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">

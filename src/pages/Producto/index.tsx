@@ -1,70 +1,79 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { AppContext } from "../../Context/AppContext";
 import Loading from "../../Components/Loading";
-// import Vitrine from "../../Components/Vitrine";
 import Description from "../../Components/Product/Description";
 import Footer from "../../Components/Footer";
-// import "./product.css";
+import "./product.css";
+import { useNavigate } from "react-router-dom";
 
 function ProductPage(props: any): JSX.Element {
-    const { addItemToCart } = useContext(AppContext);
+    const { addItemToCart, addFav, fav } = useContext(AppContext);
     const { Product } = useContext(AppContext);
-    console.log("coe", Product[0])
+    const [background, setBackground] = useState("#000");
 
-    const productItem:any = [
+
+    const productItem: any = [
         {
             "productName": Product[0].productName,
             "productBrand": Product[0].productBrand,
             "productDescription": Product[0].productDescription,
-            "imageProduct": Product[0].imageProduct,
+            "imageProduct": Product[0].thumbnail,
+            "thumbnail": Product[0].images,
             "flags": Product[0].flags,
             "ListPrice": Product[0].ListPrice,
             "Price": Product[0].Price,
-            "installmentOptionsCount": Product[0].installmentOptionsCount,
-            "installmentOptionsValue": Product[0].installmentOptionsValue
+            "quantidade": 1
         }
     ]
 
-    // if (!errorvitrineUm && !errorvitrineDois) {
+    const navigate = useNavigate();
 
-        return (
-            <>
+    const voltarhome = () => {
+        navigate("/");
+    };
 
-                {Product.length > 0 ?
-                    <>
-                        <div className="container">
-                            <div className="ProductContainer">
-                                <div className="ProductsImage">
-                                    <img width="100%" alt="" src={Product[0].imageProduct[0]} />
-                                </div>
-                                <div className="ProductsDescript">
-                                    <p>{Product[0].productBrand}</p>
-                                    <h1>{Product[0].productName}</h1>
-                                    <p className="Price">{Product[0].Price}</p>
-                                    <p className="ListPrice">{Product[0].ListPrice}</p>
-                                    <button onClick={() => addItemToCart(productItem)}>Adicionar ao carrinho</button>
-                                </div>
+    useEffect(() => {
+        fav.map((itemfav) => {
+            return itemfav === Product[0].productId ? setBackground("red") : ""
+        })
+    })
+
+    const favoreitei = () => {
+        addFav(Product[0].productId)
+        setBackground("red");
+    }
+
+    return (
+        <>
+            <button onClick={() => voltarhome()}>Voltar a página anterior</button>
+            {Product.length > 0 ?
+                <>
+                    <div className="container">
+                        <div className="ProductContainer">
+                            <div className="ProductsImage">
+                                <img width="100%" alt="" src={Product[0].imageProduct} />
                             </div>
-                            <div className="Description">
-                                <Description description={Product[0].productDescription} />
+                            <div className="ProductsDescript">
+                                <span className="Card__favorite" style={{ color: background }} onClick={() => { favoreitei() }}>
+                                    ❤
+                                </span>
+                                <p>{Product[0].productBrand}</p>
+                                <h1>{Product[0].productName}</h1>
+                                <p className="Price">{Product[0].Price}</p>
+                                <p className="ListPrice">{Product[0].ListPrice}</p>
+                                <button onClick={() => addItemToCart(productItem)}>Adicionar ao carrinho</button>
                             </div>
                         </div>
-                    </>
-                    : <Loading type="spinningBubbles" color="black" />
-                }
-
-                {/* {!loadingvitrineUm === true ?
-                    <Vitrine data={vitrineUm} />
-                    : <Loading type="spinningBubbles" color="black" text="UNA PRENDA PARA CADA OCASIÓN" />}
-
-                {!loadingvitrineDois === true ?
-                    <Vitrine data={vitrineDois} />
-                    : <Loading type="spinningBubbles" color="black" text="UNA PRENDA PARA CADA OCASIÓN" />} */}
-                <Footer />
-            </>
-        )
-    // }
-    // return <>ERRO!</>
+                        <div className="Description">
+                            <Description description={Product[0].productDescription} />
+                        </div>
+                    </div>
+                </>
+                : <Loading type="spinningBubbles" color="black" />
+            }
+            <Footer />
+        </>
+    )
 }
 
 export default ProductPage;

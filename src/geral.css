@@ -1,0 +1,88 @@
+
+.d-flex.wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 60px;
+}
+
+.container-cards,
+.group-powered-developed-by {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.container-cards {
+    margin-top: 110px;
+}
+
+.carrinhovazio {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+}
+
+.searchBox {
+    position: relative;
+}
+
+h5.encerrar-compra.cursor-pointer {
+    text-align: center;
+    height: 36px;
+    background: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 900px) {
+    .container.instafeed>h3,
+    .container.vitrine>h3,
+    .container.centerbanners>h3,
+    .container.minibanners>h3 {
+        margin-top: 20px;
+        margin-bottom: 24px;
+        text-align: center;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 31px;
+        letter-spacing: 0.1em;
+        color: #000000;
+    }
+
+    .box-blocks {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .container-cards {
+        padding: 0 16px;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .container.instafeed>h3,
+    .container.vitrine>h3,
+    .container.centerbanners>h3,
+    .container.minibanners>h3 {
+        margin-top: 40px;
+        margin-bottom: 44px;
+        text-align: center;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 26px;
+        line-height: 31px;
+        letter-spacing: 0.1em;
+        color: #000000;
+    }
+}

@@ -7,7 +7,6 @@ import Minicart from "../../Components/MiniCart"
 
 function Buscar() {
     const { api, error, loading } = useCategoria()
-    console.log("a", loading)
 
     console.log(error)
 
@@ -23,7 +22,7 @@ function Buscar() {
                 : <Loading type="spinningBubbles" color="black" />
         );
     }
-    return <>aaaaaa</>
+    return <>ERROR SERVER</>
 }
 
 export default Buscar;

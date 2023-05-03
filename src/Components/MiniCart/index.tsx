@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 // import "./minicart.css";
 
 const Minicart = () => {
-    const { cart, removeItemFromCart } = useContext(AppContext);
+    const { cart, removeItemFromCart, clearCart } = useContext(AppContext);
     const [isCartVisible, setIsCartVisible] = useState(false);
     const navigate = useNavigate();
 
@@ -40,13 +40,15 @@ const Minicart = () => {
                         {cart.length > 0 ?
                             cart.map((item: any, index) => (
                                 <li key={index}>
-                                    <img alt="" width="150px" src={item.imageProduct[0]} />
+                                    <img alt="" width="150px" src={item.imageProduct} />
                                     {item.productName} - R${item.Price}
+                                    quantidade: {item.quantidade}
                                     <p className="cursor-pointer" onClick={() => handleRemoveItem(item.productId)}>remove</p>
                                 </li>
                             )) :
                             <div className="carrinhovazio">O CARRINHO ESTÁ VAZIO</div>
                         }
+                        {cart.length > 0 && <h5 className="encerrar-compra cursor-pointer" onClick={() => clearCart()}>Esvaziar Carrinho</h5>}
                         {cart.length > 0 && <h5 className="encerrar-compra cursor-pointer" onClick={() => pageProduct()}>Encerrar compra</h5>}
                     </ul>
                 </div>
